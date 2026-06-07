@@ -1,0 +1,103 @@
+/* Chef Marco print stylesheet. Loaded via media="print". */
+/* Decision: keep the warm-paper background. Modern inkjet/laser printers omit page background by default unless the user enables it, so screen feel stays, paper feel stays neutral. */
+
+@page {
+  size: A4;
+  margin: 16mm 18mm;
+}
+
+@media print {
+  /* base */
+  html, body {
+    background: var(--paper, #f6f1e7);
+    color: var(--ink, #2b241c);
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  /* kill entrance animations, lock visible state */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* hide noise that does not help the cook */
+  .pill-row,
+  figure.hero .hero-caption,
+  nav, header nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* hero kept, but small: cooking sheet, not lookbook */
+  figure.hero img,
+  figure.hero {
+    max-height: 6cm;
+    overflow: hidden;
+  }
+  figure.hero img {
+    width: auto;
+    max-width: 100%;
+    object-fit: cover;
+    height: 6cm;
+  }
+
+  /* collapse split text/image grids to a single column for readability */
+  .body-grid,
+  .body-grid.text-left,
+  .body-grid.text-right {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  .body-grid > * { width: 100%; max-width: 100%; }
+  .body-grid figure { margin: 6mm 0; }
+
+  /* type scale tuned for A4 */
+  h1 {
+    font-size: 24pt;
+    line-height: 1.08;
+    margin: 0 0 6mm;
+    max-width: 100%;
+  }
+  h2 {
+    font-size: 14pt;
+    line-height: 1.2;
+  }
+  h3 { font-size: 12pt; }
+  .lede { font-size: 12pt; line-height: 1.4; }
+  .eyebrow { font-size: 9pt; letter-spacing: 0.18em; }
+
+  /* section numerals remain a visual anchor */
+  .section-num {
+    font-size: 32pt;
+    line-height: 1;
+  }
+
+  /* ingredient table tightens up */
+  table { font-size: 9.5pt; width: 100%; border-collapse: collapse; }
+  table th, table td { padding: 4px 8px; }
+
+  /* keep cohesive blocks together */
+  ol.steps li,
+  figure,
+  .panel,
+  table tbody tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* sections breathe between pages without orphan headings */
+  h2, h3 { page-break-after: avoid; break-after: avoid; }
+
+  /* hide any service worker / install affordance and the cook button */
+  #cm-cook-button, #cm-cook-overlay { display: none !important; }
+
+  /* anchors readable in print */
+  a { color: inherit; text-decoration: none; }
+  a[href]:after { content: ""; }
+
+  /* avoid background images being lost by some renderers */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

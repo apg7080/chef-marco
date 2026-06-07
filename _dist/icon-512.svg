@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <circle cx="256" cy="256" r="256" fill="#c46a3a"/>
+  <text x="256" y="352" text-anchor="middle"
+        font-family="Iowan Old Style, Hoefler Text, Georgia, serif"
+        font-size="340" font-weight="500" fill="#f6f1e7">m</text>
+</svg>

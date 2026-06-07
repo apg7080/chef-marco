@@ -1,0 +1,25 @@
+{
+  "name": "Chef Marco",
+  "short_name": "Chef Marco",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#c46a3a",
+  "background_color": "#f6f1e7",
+  "description": "Warm paper recipes, cookable offline.",
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

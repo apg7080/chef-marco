@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- cook-gen v1 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simplified beef and eggplant bake</title>
+<link rel="manifest" href="../_dist/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../_dist/print.css" media="print">
+<style>
+  /* Smooth cross-document navigation from the index; hero photo morphs in. */
+  @view-transition { navigation: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "calt", "onum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap { width: 100%; max-width: var(--maxgrid); margin: 0 auto; padding: 48px var(--gutter) 120px; }
+  @media (max-width: 720px) { .wrap { padding: 24px var(--gutter) 72px; } }
+  .prose { max-width: var(--maxprose); }
+
+  header { padding: 28px 0 36px; position: relative; }
+  header::before { content: ""; display: block; width: 56px; height: 2px; background: var(--clay); margin-bottom: 28px; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: var(--t-eyebrow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    font-weight: 700;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: var(--t-h1);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin: 18px 0 22px;
+    max-width: 20ch;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 28;
+    font-size: var(--t-lede);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 52ch;
+    margin: 0 0 32px;
+    font-weight: 400;
+    text-wrap: pretty;
+    letter-spacing: -0.003em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    margin: 0 0 18px;
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+  }
+  .meta dt {
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    margin-bottom: 6px;
+  }
+  .meta dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+  .meta > div + div { padding-left: 18px; border-left: 1px solid var(--rule-soft); }
+  @media (max-width: 640px) { .meta > div + div { padding-left: 0; border-left: 0; padding-top: 12px; margin-top: 12px; border-top: 1px dashed var(--rule-soft); } }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .pill {
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+  .pill .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--safe); margin-right: 6px; vertical-align: 1px; }
+
+  .hero { margin: 48px 0 0; position: relative; }
+  .hero img { width: 100%; height: auto; display: block; border-radius: var(--img-radius); background: var(--card); object-fit: cover; }
+  .hero-caption {
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    color: var(--ink-soft);
+    margin-top: 14px;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+  }
+
+  section { margin-top: 96px; position: relative; }
+  section:first-of-type { margin-top: 80px; }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 36px;
+  }
+  @media (min-width: 920px) {
+    .section-head { grid-template-columns: 120px 1fr; align-items: start; gap: 0; }
+  }
+  .section-num {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: 56px;
+    line-height: 0.85;
+    color: var(--clay);
+    font-weight: 300;
+    font-variant-numeric: lining-nums;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 920px) {
+    .section-num { font-size: 72px; margin-bottom: 0; margin-top: -6px; }
+  }
+  .section-title h2 {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 96;
+    font-size: var(--t-h2);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    margin: 0 0 10px;
+    line-height: 1.1;
+    text-wrap: balance;
+    max-width: 22ch;
+    color: var(--ink);
+  }
+  .section-title .kicker {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    color: var(--ink-soft);
+    margin: 0;
+    text-wrap: pretty;
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+
+  p { margin: 0 0 16px; max-width: var(--maxprose); line-height: 1.65; }
+  p + p { margin-top: 0; }
+  .body-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  @media (min-width: 920px) {
+    .body-grid.text-left  { grid-template-columns: 5fr 7fr; gap: 64px; }
+    .body-grid.text-right { grid-template-columns: 7fr 5fr; gap: 64px; }
+  }
+
+  figure { margin: 0; }
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--img-radius);
+    background: var(--card);
+    object-fit: cover;
+  }
+  figure:empty,
+  figure img:not([src]),
+  figure img[src=""] { min-height: 280px; aspect-ratio: 4 / 5; background: var(--paper-deep); }
+
+  /* Bento: when two figures travel together (method has prep_action + side).
+     Stays inline on wide grids, swaps to 2-up bento when grid collapses. */
+  .method-col { display: flex; flex-direction: column; gap: 32px; }
+  .method-col figure.method-side { margin-top: 0; }
+  .bento-pair {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  @media (min-width: 540px) and (max-width: 919px) {
+    .bento-pair { grid-template-columns: 5fr 4fr; gap: 12px; align-items: end; }
+    .bento-pair > figure:first-child img { aspect-ratio: 4 / 5; }
+    .bento-pair > figure:last-child img { aspect-ratio: 4 / 5; }
+  }
+  figcaption {
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.55;
+    max-width: 42ch;
+    text-wrap: pretty;
+  }
+  .hero-caption { text-wrap: pretty; max-width: 56ch; }
+
+  .tight-list { padding-left: 20px; margin: 0 0 16px; font-size: var(--t-body); }
+  .tight-list li { margin-bottom: 8px; line-height: 1.55; }
+  .tight-list li:last-child { margin-bottom: 0; }
+
+  .meta-line {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    color: var(--ink);
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin: 10px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule-soft);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+  .meta-line span + span { color: var(--ink-soft); font-weight: 400; }
+
+  h3.sub {
+    font-family: var(--sans);
+    font-size: var(--t-h3);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--olive);
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+  }
+  table th { text-align: left; padding: 0 0 12px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; border-bottom: 1px solid var(--rule); }
+  table td { padding: 14px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table tr:last-child td { border-bottom: 0; }
+  td.amt { white-space: nowrap; color: var(--ink-soft); font-variant-numeric: tabular-nums; text-align: right; padding-left: 16px; }
+  .tag {
+    display: inline-block;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--clay-wash);
+    color: var(--clay-deep);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-left: 6px;
+    vertical-align: 1px;
+  }
+
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: start;
+  }
+  ol.steps li:first-child { padding-top: 0; }
+  ol.steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  ol.steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--clay-deep);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  ol.steps .timing {
+    display: block;
+    font-family: var(--sans);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--olive);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  ol.steps .lead {
+    display: block;
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 32;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  ol.steps p { margin: 6px 0 0; font-size: var(--t-body); line-height: 1.6; max-width: 60ch; text-wrap: pretty; }
+
+  .panel { border-radius: 10px; padding: 32px 36px; }
+  @media (max-width: 720px) { .panel { padding: 24px; } }
+  .panel.safe {
+    background: var(--safe-wash);
+    border: 1px solid color-mix(in oklch, var(--safe) 40%, transparent);
+  }
+  .panel.warm {
+    background: var(--clay-wash);
+    border: 1px solid color-mix(in oklch, var(--clay) 25%, transparent);
+  }
+  .panel h3.sub { color: var(--safe); margin-bottom: 18px; }
+  .panel.warm h3.sub { color: var(--clay); }
+
+  .safety-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px 28px;
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  @media (min-width: 720px) { .safety-grid { grid-template-columns: 1fr 1fr; } }
+  .safety-grid li {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 6px;
+    align-items: start;
+  }
+  .safety-grid li::before {
+    content: "✓";
+    color: var(--safe);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  .safety-grid li.warn::before { content: "!"; color: var(--warn); }
+  .safety-grid ul { padding: 0; margin: 0; display: contents; }
+
+  .panel.warm p { margin: 0; color: var(--ink); font-size: var(--t-body); line-height: 1.55; }
+
+  footer {
+    margin-top: 96px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: var(--maxprose);
+  }
+
+  .reveal { opacity: 0; transform: translateY(8px); transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .hero img { animation: heroIn 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @keyframes heroIn { from { opacity: 0; transform: scale(1.012); } to { opacity: 1; transform: none; } }
+  /* Arrived via view transition: the morph already placed the hero — don't replay heroIn. */
+  :root.vt-in .hero img { animation: none; }
+
+  /* Back-to-index link (matters for the standalone PWA, which has no browser back button). */
+  .topnav {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    padding-top: 6px;
+    margin-bottom: 4px;
+  }
+  .topnav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    transition: color 200ms ease;
+  }
+  .topnav a:hover { color: var(--clay-deep); }
+  .topnav a:focus-visible { outline: 2px solid var(--clay); outline-offset: 3px; border-radius: 4px; }
+  .topnav .arrow { transition: transform 200ms cubic-bezier(0.16,1,0.3,1); }
+  .topnav a:hover .arrow { transform: translateX(-3px); }
+
+  /* Theme toggle: small affordance in top-right */
+  .theme-toggle {
+    position: fixed; top: 18px; right: 18px; z-index: 50;
+    width: 38px; height: 38px; border-radius: 999px;
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--rule);
+    font: 16px/1 var(--sans);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .theme-toggle:hover { background: var(--paper-deep); transform: translateY(-1px); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
+
+  /* Tag (ingredient prep marker) dark-mode legibility */
+  .tag { background: color-mix(in oklch, var(--clay) 18%, var(--card)); color: var(--clay-deep); }
+  :root[data-theme="dark"] .tag { color: var(--ink); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .tag { color: var(--ink); }
+  }
+</style>
+</head>
+<body>
+  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" data-theme-toggle>
+    <span aria-hidden="true" data-theme-icon>◐</span>
+  </button>
+  <main class="wrap">
+
+    <nav class="topnav"><a href="../index.html"><span class="arrow" aria-hidden="true">←</span> All recipes</a></nav>
+
+    <header>
+      <div class="eyebrow">Chef Marco · Family meal · 10 months</div>
+      <h1>Simplified beef and eggplant bake</h1>
+      <p class="lede">A loose, weeknight take on moussaka: roasted eggplant and a cinnamon-warmed beef sauce that splits cleanly into a baby scoop and two adult plates. The baby bowl comes out before the feta and salt go on, so the same pan feeds the whole table without a second cook.</p>
+
+      <dl class="meta"><div><dt>Yield</dt><dd>3 adult dinners + 1 baby lunch</dd></div>
+        <div><dt>Active time</dt><dd>25 min</dd></div>
+        <div><dt>Total</dt><dd>55 min</dd></div>
+        <div><dt>Texture</dt><dd>Lumpy + strips</dd></div>
+        <div><dt>Fits weeks</dt><dd>2 to 3</dd></div></dl>
+
+      <div class="pill-row" aria-label="Safety hits"><span class="pill"><span class="dot"></span>No salt</span>
+        <span class="pill"><span class="dot"></span>No honey</span>
+        <span class="pill"><span class="dot"></span>No high-mercury fish</span>
+        <span class="pill"><span class="dot"></span>Lumpy texture</span>
+        <span class="pill"><span class="dot"></span>Freezer-friendly</span></div>
+    </header>
+
+    <figure class="hero">
+      <img src="../assets/generated/simplified-beef-and-eggplant-bake/hero.png" alt="Overhead photograph of the served simplified beef and eggplant bake on a pale silicone suction tray." style="view-transition-name: card-simplified-beef-and-eggplant-bake">
+      <p class="hero-caption">Two adult plates and one baby bowl, finished from one bake plus one skillet.</p>
+    </figure>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">01</div>
+        <div class="section-title">
+          <h2>What you are making</h2>
+          <p class="kicker">A loose moussaka for two adults plus a baby scoop, set aside before the feta.</p>
+        </div>
+      </div>
+      <div class="body-grid text-left">
+        <div class="prose">
+          <p>Built from scratch in one session. Nothing pre-cooked is required.</p>
+          <p class="meta-line"><span>2 adult dinners + 1 baby lunch</span><span>25 min active / 55 min total</span></p>
+        </div>
+        <figure>
+          <img src="../assets/generated/simplified-beef-and-eggplant-bake/ingredients.png" alt="Flat-lay of raw ingredients for simplified beef and eggplant bake.">
+          <figcaption>The short list: beef, one eggplant, a can of tomatoes, and a pinch of cinnamon.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">02</div>
+        <div class="section-title">
+          <h2>Ingredients</h2>
+          <p class="kicker">Quantities make 2 adult dinners + 1 baby lunch.</p>
+        </div>
+      </div>
+      <div class="body-grid text-left">
+        <div>
+          <h3 class="sub">Base, three portions</h3>
+          <table>
+            <thead><tr><th>Ingredient</th><th style="text-align:right">Amount</th></tr></thead>
+            <tbody>
+              <tr><td>Ground beef</td><td class="amt">1 lb</td></tr>
+              <tr><td>Eggplant, sliced into rounds</td><td class="amt">1 large</td></tr>
+              <tr><td>Crushed tomatoes</td><td class="amt">1 can (28 oz)</td></tr>
+              <tr><td>Onion, diced</td><td class="amt">1 small</td></tr>
+              <tr><td>Garlic, minced</td><td class="amt">3 cloves</td></tr>
+              <tr><td>Dried oregano</td><td class="amt">1 tsp</td></tr>
+              <tr><td>Ground cinnamon</td><td class="amt">pinch</td></tr>
+              <tr><td>Olive oil</td><td class="amt">2 tbsp</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 class="sub">Adult finish (after baby portion is set aside)</h3>
+          <table>
+            <tbody>
+              <tr><td>Crumbled feta<span class="tag">adult_only</span></td><td class="amt">½ cup</td></tr>
+              <tr><td>Flaky salt<span class="tag">adult_only</span></td><td class="amt">to taste</td></tr>
+              <tr><td>Cracked black pepper<span class="tag">adult_only</span></td><td class="amt">to taste</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">03</div>
+        <div class="section-title">
+          <h2>Method</h2>
+          <p class="kicker">25 minutes of active time.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        <figure>
+          <img src="../assets/generated/simplified-beef-and-eggplant-bake/prep_action.png" alt="Hands preparing simplified beef and eggplant bake in a small ceramic bowl on a butcher block counter.">
+          <figcaption>Eggplant rounds roast until they collapse and mash with a fork.</figcaption>
+        </figure>
+        <div class="method-col">
+          <ol class="steps">
+          <li>
+            <div>
+              <span class="timing">20 min at 425°F</span>
+              <span class="lead">Roast the eggplant.</span>
+              <p>Heat the oven to 425°F. Brush eggplant rounds with olive oil, lay on a sheet pan, roast twenty minutes until very soft and collapsing. They should mash with a fork.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="timing">8 min</span>
+              <span class="lead">Brown the beef.</span>
+              <p>While the eggplant roasts, brown the ground beef with the diced onion and minced garlic in a skillet over medium-high, breaking the meat fine. Drain excess fat.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="timing">10 min</span>
+              <span class="lead">Simmer the sauce.</span>
+              <p>Stir in the crushed tomatoes, oregano, and a pinch of cinnamon. Drop the heat and simmer ten minutes until thick. No salt yet.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="timing">1 min</span>
+              <span class="lead">Set baby portion aside.</span>
+              <p>Spoon a few roasted eggplant rounds and a generous scoop of the beef sauce into a shallow bowl. Mash together so there are no large pieces. No salt, no feta yet.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span class="timing">15 min at 425°F</span>
+              <span class="lead">Layer and bake the adult plates.</span>
+              <p>Layer the remaining eggplant and sauce in a baking dish, top with crumbled feta, flaky salt, and pepper. Bake fifteen minutes until the feta softens and the edges bubble.</p>
+            </div>
+          </li>
+          </ol>
+          <figure class="method-side">
+          <img src="../assets/generated/simplified-beef-and-eggplant-bake/side.png" alt="Top-down photograph of the roasted finger sides.">
+          <figcaption>A steamed zucchini strip on the baby tray for hand-grip practice.</figcaption>
+        </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">04</div>
+        <div class="section-title">
+          <h2>Plate it</h2>
+          <p class="kicker">One safe choice in each grip category.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        
+        <div class="prose">
+          <ul class="tight-list">
+            <li><strong>Spoon load.</strong> Pre-load a baby spoon with mashed eggplant and beef sauce.</li>
+            <li><strong>Pinch.</strong> A few fork-tender eggplant pieces for thumb-and-finger practice.</li>
+            <li><strong>Strip grip.</strong> Steamed zucchini strip or cucumber spear on the side.</li>
+          </ul>
+          <p>Eggplant holds heat in the center. Stir and test before serving.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">05</div>
+        <div class="section-title">
+          <h2>Safety check</h2>
+          <p class="kicker">From the Chef Marco Baby Safety Notes for a 10-month-old.</p>
+        </div>
+      </div>
+      <div class="panel safe">
+        <h3 class="sub">Pass</h3>
+        <ul class="safety-grid">
+          <li>No salt added at any step</li>
+          <li>No honey</li>
+          <li>No choke shapes: whole grape, whole blueberry, round meatball, whole nut, hard raw carrot, hard raw apple, whole cherry tomato, chunk cheese</li>
+          <li>Texture is lumpy + strips</li>
+          <li>No high-mercury fish in this recipe</li>
+          <li class="warn">Contains common allergens: milk. Confirm none are on the no-go list for this child.</li>
+          <li class="warn">Sit-down eating only, never propped or in a moving stroller</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">06</div>
+        <div class="section-title">
+          <h2>Storage and reheat</h2>
+          <p class="kicker">Glass jars only. No plastic for warm food.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        <figure>
+          <img src="../assets/generated/simplified-beef-and-eggplant-bake/storage.png" alt="Three small glass jars portioned for the week, lids on, on a marble counter.">
+          <figcaption>One sealed jar for the baby lunch, two adult plates served warm.</figcaption>
+        </figure>
+        <div class="prose">
+          <ul class="tight-list">
+            <li><strong>Fridge.</strong> 3 days in sealed glass.</li>
+            <li><strong>Freezer.</strong> Up to 2 weeks. Thaw overnight in the fridge.</li>
+            <li><strong>Reheat.</strong> Microwave thirty seconds, stir, thirty more. Wrist test before serving.</li>
+            <li><strong>Do not.</strong> Reheat the baby portion more than once.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal">
+      <div class="section-head">
+        <div class="section-num">07</div>
+        <div class="section-title">
+          <h2>Adult version</h2>
+          <p class="kicker">Same base, one extra minute, fully seasoned.</p>
+        </div>
+      </div>
+      <div class="panel warm">
+        <p>After the baby portion is sealed, layer the rest of the eggplant and beef sauce in a dish, blanket it with crumbled feta, flaky salt, and cracked pepper, and bake until the top bubbles. Plate with a green salad with red onion and a torn piece of warm flatbread if you want a third element.</p>
+      </div>
+    </section>
+
+    <footer>For Aiden. Baby Safety Notes referenced. Photographs generated with Imagen 4 unless marked photographed at home. Typeset in Fraunces and Inter on a warm-paper palette.</footer>
+
+  </main>
+
+  <script src="../_dist/tap-step.js" defer></script>
+  <script src="../_dev/nudge.js" defer></script>
+  <script>
+    (function () {
+      var KEY = 'chef-marco-theme';
+      var root = document.documentElement;
+      try {
+        var saved = localStorage.getItem(KEY);
+        if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+      } catch (e) { /* localStorage may be blocked */ }
+      var btn = document.querySelector('[data-theme-toggle]');
+      var icon = document.querySelector('[data-theme-icon]');
+      function effective() {
+        var explicit = root.getAttribute('data-theme');
+        if (explicit) return explicit;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      function paint() {
+        if (icon) icon.textContent = effective() === 'dark' ? '☀' : '☾';
+      }
+      paint();
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var next = effective() === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', next);
+          try { localStorage.setItem(KEY, next); } catch (e) { /* */ }
+          paint();
+        });
+      }
+    })();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../_dist/sw.js').catch(function () { /* offline optional */ });
+    }
+    // Arriving via a cross-document view transition: mark the page so heroIn is
+    // skipped and reveals show instantly, so the morph isn't doubled.
+    window.addEventListener('pagereveal', function (e) {
+      if (e && e.viewTransition) {
+        document.documentElement.classList.add('vt-in');
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      }
+    });
+    (function () {
+      if (document.documentElement.classList.contains('vt-in')) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>

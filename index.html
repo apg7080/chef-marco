@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- cook-gen index v1 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chef Marco — The family table</title>
+<link rel="manifest" href="_dist/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Smooth cross-document navigation; the hero photo morphs, the rest fades. */
+  @view-transition { navigation: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+    .card:hover .card-media img, .card:active { transform: none !important; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "calt", "onum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { width: 100%; max-width: var(--maxgrid); margin: 0 auto; padding: 48px var(--gutter) 120px; }
+  @media (max-width: 720px) { .wrap { padding: 24px var(--gutter) 72px; } }
+
+  header.masthead { padding: 28px 0 8px; position: relative; }
+  header.masthead::before { content: ""; display: block; width: 56px; height: 2px; background: var(--clay); margin-bottom: 28px; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: var(--t-eyebrow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    font-weight: 700;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: var(--t-h1);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin: 18px 0 20px;
+    max-width: 16ch;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 28;
+    font-size: var(--t-lede);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 50ch;
+    margin: 0 0 8px;
+    font-weight: 400;
+    text-wrap: pretty;
+  }
+  @media (max-width: 720px) {
+    .lede { font-size: clamp(17px, 4.6vw, 20px); }
+  }
+
+  .group { margin-top: 88px; }
+  .group:first-of-type { margin-top: 64px; }
+  @media (max-width: 720px) { .group { margin-top: 56px; } .group:first-of-type { margin-top: 40px; } }
+  .group-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 28px;
+    align-items: start;
+  }
+  @media (min-width: 920px) { .group-head { grid-template-columns: 120px 1fr; } }
+  .group-num {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: 56px;
+    line-height: 0.85;
+    color: var(--clay);
+    font-weight: 300;
+    font-variant-numeric: lining-nums;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 920px) { .group-num { font-size: 72px; margin-bottom: 0; margin-top: -6px; } }
+  .group-title {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 96;
+    font-size: var(--t-h2);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    margin: 0 0 8px;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .group-kicker {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+  .group-count {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    vertical-align: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Bento via CSS Grid — row-major + dense flow keeps the time-sort readable
+     left-to-right, while feature/wide spans add scale variation. */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 150px;
+    grid-auto-flow: dense;
+    gap: 14px;
+  }
+  @media (min-width: 640px) { .bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 168px; gap: 16px; } }
+  @media (min-width: 920px) { .bento { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 184px; gap: 18px; } }
+
+  .card {
+    position: relative;
+    display: block;
+    grid-column: span 1;
+    grid-row: span 1;
+    border-radius: var(--img-radius);
+    overflow: hidden;
+    background: var(--card);
+    text-decoration: none;
+    color: inherit;
+    isolation: isolate;
+    border: 1px solid var(--rule-soft);
+    -webkit-tap-highlight-color: color-mix(in oklch, var(--clay) 22%, transparent);
+    transition: transform 260ms cubic-bezier(0.16,1,0.3,1), box-shadow 260ms ease, border-color 260ms ease;
+  }
+  /* One intentional gesture: the photo leans in. No competing lift. */
+  .card:hover .card-media img { transform: scale(1.04); }
+  .card:active { transform: scale(0.985); }
+  .card:focus-visible { outline: 3px solid oklch(0.85 0.12 70); outline-offset: 3px; }
+
+  /* spans — widen/tallen only where enough columns exist */
+  .card--feature { grid-row: span 2; }
+  @media (min-width: 640px) {
+    .card--wide { grid-column: span 2; }
+    .card--feature { grid-column: span 2; grid-row: span 2; }
+  }
+
+  .card-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 600ms cubic-bezier(0.16,1,0.3,1); }
+  .card-noimg { width: 100%; height: 100%; background: var(--paper-deep); }
+  /* Fixed dark scrim, theme-independent, so white text always clears AA. */
+  .card-media::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to top,
+      oklch(0.15 0.03 40 / 0.88) 0%,
+      oklch(0.15 0.03 40 / 0.50) 30%,
+      oklch(0.15 0.03 40 / 0) 62%);
+  }
+
+  .card-body {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 1;
+    padding: 13px 15px 12px;
+    color: oklch(0.98 0.012 82);
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 40;
+    font-size: 16px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0;
+    text-wrap: balance;
+    color: oklch(0.98 0.012 82);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card--feature .card-title { font-size: 22px; font-variation-settings: "opsz" 72; }
+  .card--wide .card-title { font-size: 18px; font-variation-settings: "opsz" 56; }
+  .card-sub {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    line-height: 1.4;
+    margin: 7px 0 0;
+    color: oklch(0.93 0.014 82);
+    max-width: 40ch;
+    text-wrap: pretty;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--sans);
+    margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .card-time {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: oklch(0.985 0.01 82);
+  }
+  .card-baby {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: oklch(0.92 0.05 145);
+  }
+  .card-baby .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--safe); box-shadow: 0 0 0 2px oklch(0.15 0.03 40 / 0.35); }
+  .card-baby-x { opacity: 0.55; margin: 0 1px; }
+  .card-baby--only { color: oklch(0.92 0.07 70); font-style: italic; font-family: var(--serif); font-variation-settings: "opsz" 20; }
+  .card-go {
+    position: absolute;
+    right: 13px; bottom: 12px;
+    font-family: var(--sans);
+    font-size: 16px; line-height: 1;
+    color: oklch(0.98 0.012 82 / 0.7);
+    transform: translateX(-2px);
+    transition: transform 260ms cubic-bezier(0.16,1,0.3,1), color 260ms ease;
+  }
+  .card:hover .card-go, .card:focus-visible .card-go { transform: translateX(2px); color: oklch(0.98 0.012 82); }
+
+  footer {
+    margin-top: 96px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: var(--maxprose);
+  }
+  footer .safe-word { color: var(--safe); font-weight: 600; }
+
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; z-index: 50;
+    width: 44px; height: 44px; border-radius: 999px;
+    background: var(--card); color: var(--ink);
+    border: 1px solid var(--rule);
+    font: 16px/1 var(--sans);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .theme-toggle:hover { background: var(--paper-deep); transform: translateY(-1px); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
+</style>
+</head>
+<body>
+  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" data-theme-toggle>
+    <span aria-hidden="true" data-theme-icon>◐</span>
+  </button>
+  <main class="wrap">
+    <header class="masthead">
+      <div class="eyebrow">Chef Marco</div>
+      <h1>The family table</h1>
+      <p class="lede">34 Mediterranean recipes built for two adult plates and a baby portion from the same pan.</p>
+    </header>
+
+    <section class="group">
+      <div class="group-head">
+        <span class="group-num">01</span>
+        <div>
+          <h2 class="group-title">Breakfast</h2>
+          <p class="group-kicker">Mornings, fast and protein-led. <span class="group-count">6</span></p>
+        </div>
+      </div>
+      <div class="bento">
+      <a class="card card--feature reveal" href="Recipes/cottage-cheese-and-tomato-bowl.html">
+        <div class="card-media"><img src="assets/generated/cottage-cheese-and-tomato-bowl/hero.png" alt="Cottage cheese and tomato bowl" loading="lazy" decoding="async" style="view-transition-name: card-cottage-cheese-and-tomato-bowl"></div>
+        <div class="card-body">
+          <h3 class="card-title">Cottage cheese and tomato bowl</h3>
+          <p class="card-sub">A five-minute breakfast for adults, a soft pinch plate for the baby.</p><span class="card-meta"><span class="card-time">5 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/greek-yogurt-bowl-with-berries.html">
+        <div class="card-media"><img src="assets/generated/greek-yogurt-bowl-with-berries/hero.png" alt="Greek yogurt bowl with berries" loading="lazy" decoding="async" style="view-transition-name: card-greek-yogurt-bowl-with-berries"></div>
+        <div class="card-body">
+          <h3 class="card-title">Greek yogurt bowl with berries</h3>
+          <span class="card-meta"><span class="card-time">5 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/mediterranean-power-smoothie.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-power-smoothie/hero.png" alt="Mediterranean power smoothie" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-power-smoothie"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean power smoothie</h3>
+          <span class="card-meta"><span class="card-time">5 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/veggie-scramble-with-feta.html">
+        <div class="card-media"><img src="assets/generated/veggie-scramble-with-feta/hero.png" alt="Veggie scramble with feta" loading="lazy" decoding="async" style="view-transition-name: card-veggie-scramble-with-feta"></div>
+        <div class="card-body">
+          <h3 class="card-title">Veggie scramble with feta</h3>
+          <span class="card-meta"><span class="card-time">10 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/boursin-eggs-on-toast-with-avocado-and-tomato.html">
+        <div class="card-media"><img src="assets/generated/boursin-eggs-on-toast-with-avocado-and-tomato/hero.png" alt="Boursin eggs on toast with avocado and tomato" loading="lazy" decoding="async" style="view-transition-name: card-boursin-eggs-on-toast-with-avocado-and-tomato"></div>
+        <div class="card-body">
+          <h3 class="card-title">Boursin eggs on toast with avocado and tomato</h3>
+          <span class="card-meta"><span class="card-time">15 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/mediterranean-egg-muffins-batch.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-egg-muffins-batch/hero.png" alt="Mediterranean egg muffins (batch)" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-egg-muffins-batch"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean egg muffins (batch)</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>11<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <div class="group-head">
+        <span class="group-num">02</span>
+        <div>
+          <h2 class="group-title">Lunch</h2>
+          <p class="group-kicker">Midday plates, much of it from the weekend prep. <span class="group-count">6</span></p>
+        </div>
+      </div>
+      <div class="bento">
+      <a class="card card--feature reveal" href="Recipes/greek-chicken-lunch-bowl-uses-prep.html">
+        <div class="card-media"><img src="assets/generated/greek-chicken-lunch-bowl-uses-prep/hero.png" alt="Greek chicken lunch bowl" loading="lazy" decoding="async" style="view-transition-name: card-greek-chicken-lunch-bowl-uses-prep"></div>
+        <div class="card-body">
+          <h3 class="card-title">Greek chicken lunch bowl</h3>
+          <p class="card-sub">Ten-minute family lunch from prepped thighs, with a baby plate pulled before any salt.</p><span class="card-meta"><span class="card-time">10 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/mediterranean-chicken-wrap.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-chicken-wrap/hero.png" alt="Mediterranean chicken wrap" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-chicken-wrap"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean chicken wrap</h3>
+          <span class="card-meta"><span class="card-time">10 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/mediterranean-tuna-salad.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-tuna-salad/hero.png" alt="Mediterranean tuna salad" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-tuna-salad"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean tuna salad</h3>
+          <span class="card-meta"><span class="card-time">10 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/greek-chicken-salad.html">
+        <div class="card-media"><img src="assets/generated/greek-chicken-salad/hero.png" alt="Greek chicken salad" loading="lazy" decoding="async" style="view-transition-name: card-greek-chicken-salad"></div>
+        <div class="card-body">
+          <h3 class="card-title">Greek chicken salad</h3>
+          <span class="card-meta"><span class="card-time">15 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/aiden-salmon-white-bean-dill-lunch.html">
+        <div class="card-media"><img src="assets/generated/aiden-salmon-white-bean-dill-lunch/hero.png" alt="Salmon, white bean and dill mash for Aiden" loading="lazy" decoding="async" style="view-transition-name: card-aiden-salmon-white-bean-dill-lunch"></div>
+        <div class="card-body">
+          <h3 class="card-title">Salmon, white bean and dill mash for Aiden</h3>
+          <span class="card-meta"><span class="card-time">35 min</span><span class="card-baby card-baby--only">for Aiden</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/aiden-lentil-sweet-potato-lunch.html">
+        <div class="card-media"><img src="assets/generated/aiden-lentil-sweet-potato-lunch/hero.png" alt="Lentil and sweet potato lunch for Aiden" loading="lazy" decoding="async" style="view-transition-name: card-aiden-lentil-sweet-potato-lunch"></div>
+        <div class="card-body">
+          <h3 class="card-title">Lentil and sweet potato lunch for Aiden</h3>
+          <span class="card-meta"><span class="card-time">40 min</span><span class="card-baby card-baby--only">for Aiden</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      </div>
+    </section>
+
+    <section class="group">
+      <div class="group-head">
+        <span class="group-num">03</span>
+        <div>
+          <h2 class="group-title">Dinner</h2>
+          <p class="group-kicker">The family table — two adult plates plus a baby portion. <span class="group-count">22</span></p>
+        </div>
+      </div>
+      <div class="bento">
+      <a class="card card--feature reveal" href="Recipes/sous-vide-lemon-herb-chicken-plate.html">
+        <div class="card-media"><img src="assets/generated/sous-vide-lemon-herb-chicken-plate/hero.png" alt="Sous vide lemon-herb chicken plate" loading="lazy" decoding="async" style="view-transition-name: card-sous-vide-lemon-herb-chicken-plate"></div>
+        <div class="card-body">
+          <h3 class="card-title">Sous vide lemon-herb chicken plate</h3>
+          <p class="card-sub">Two adult plates plus a baby portion, fifteen minutes hands-on.</p><span class="card-meta"><span class="card-time">15 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/chicken-souvlaki-bowls.html">
+        <div class="card-media"><img src="assets/generated/chicken-souvlaki-bowls/hero.png" alt="Chicken souvlaki bowls" loading="lazy" decoding="async" style="view-transition-name: card-chicken-souvlaki-bowls"></div>
+        <div class="card-body">
+          <h3 class="card-title">Chicken souvlaki bowls</h3>
+          <span class="card-meta"><span class="card-time">20 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/garlic-shrimp-and-cauliflower-rice.html">
+        <div class="card-media"><img src="assets/generated/garlic-shrimp-and-cauliflower-rice/hero.png" alt="Garlic shrimp and cauliflower rice" loading="lazy" decoding="async" style="view-transition-name: card-garlic-shrimp-and-cauliflower-rice"></div>
+        <div class="card-body">
+          <h3 class="card-title">Garlic shrimp and cauliflower rice</h3>
+          <span class="card-meta"><span class="card-time">20 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/meatballs-in-marinara-over-polenta.html">
+        <div class="card-media"><img src="assets/generated/meatballs-in-marinara-over-polenta/hero.png" alt="Meatballs in marinara over polenta" loading="lazy" decoding="async" style="view-transition-name: card-meatballs-in-marinara-over-polenta"></div>
+        <div class="card-body">
+          <h3 class="card-title">Meatballs in marinara over polenta</h3>
+          <span class="card-meta"><span class="card-time">25 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/mediterranean-turkey-and-zucchini-skillet.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-turkey-and-zucchini-skillet/hero.png" alt="Mediterranean turkey and zucchini skillet" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-turkey-and-zucchini-skillet"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean turkey and zucchini skillet</h3>
+          <span class="card-meta"><span class="card-time">25 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/salmon-cakes-with-cucumber-yogurt.html">
+        <div class="card-media"><img src="assets/generated/salmon-cakes-with-cucumber-yogurt/hero.png" alt="Salmon cakes with cucumber-yogurt" loading="lazy" decoding="async" style="view-transition-name: card-salmon-cakes-with-cucumber-yogurt"></div>
+        <div class="card-body">
+          <h3 class="card-title">Salmon cakes with cucumber-yogurt</h3>
+          <span class="card-meta"><span class="card-time">25 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/zucchini-noodle-shrimp-scampi.html">
+        <div class="card-media"><img src="assets/generated/zucchini-noodle-shrimp-scampi/hero.png" alt="Zucchini noodle shrimp scampi" loading="lazy" decoding="async" style="view-transition-name: card-zucchini-noodle-shrimp-scampi"></div>
+        <div class="card-body">
+          <h3 class="card-title">Zucchini noodle shrimp scampi</h3>
+          <span class="card-meta"><span class="card-time">25 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/baked-cod-with-tomatoes-and-olives.html">
+        <div class="card-media"><img src="assets/generated/baked-cod-with-tomatoes-and-olives/hero.png" alt="Baked cod with tomatoes and olives" loading="lazy" decoding="async" style="view-transition-name: card-baked-cod-with-tomatoes-and-olives"></div>
+        <div class="card-body">
+          <h3 class="card-title">Baked cod with tomatoes and olives</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/italian-wedding-soup.html">
+        <div class="card-media"><img src="assets/generated/italian-wedding-soup/hero.png" alt="Italian wedding soup" loading="lazy" decoding="async" style="view-transition-name: card-italian-wedding-soup"></div>
+        <div class="card-body">
+          <h3 class="card-title">Italian wedding soup</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/one-pan-chicken-orzo-with-spinach.html">
+        <div class="card-media"><img src="assets/generated/one-pan-chicken-orzo-with-spinach/hero.png" alt="One-pan chicken orzo with spinach" loading="lazy" decoding="async" style="view-transition-name: card-one-pan-chicken-orzo-with-spinach"></div>
+        <div class="card-body">
+          <h3 class="card-title">One-pan chicken orzo with spinach</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/pesto-salmon-bowls-with-cauliflower-rice.html">
+        <div class="card-media"><img src="assets/generated/pesto-salmon-bowls-with-cauliflower-rice/hero.png" alt="Pesto salmon bowls with cauliflower rice" loading="lazy" decoding="async" style="view-transition-name: card-pesto-salmon-bowls-with-cauliflower-rice"></div>
+        <div class="card-body">
+          <h3 class="card-title">Pesto salmon bowls with cauliflower rice</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/shakshuka-with-feta.html">
+        <div class="card-media"><img src="assets/generated/shakshuka-with-feta/hero.png" alt="Shakshuka with feta" loading="lazy" decoding="async" style="view-transition-name: card-shakshuka-with-feta"></div>
+        <div class="card-body">
+          <h3 class="card-title">Shakshuka with feta</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/spinach-and-feta-frittata.html">
+        <div class="card-media"><img src="assets/generated/spinach-and-feta-frittata/hero.png" alt="Spinach and feta frittata" loading="lazy" decoding="async" style="view-transition-name: card-spinach-and-feta-frittata"></div>
+        <div class="card-body">
+          <h3 class="card-title">Spinach and feta frittata</h3>
+          <span class="card-meta"><span class="card-time">30 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/lemony-lentil-soup.html">
+        <div class="card-media"><img src="assets/generated/lemony-lentil-soup/hero.png" alt="Lemony lentil soup" loading="lazy" decoding="async" style="view-transition-name: card-lemony-lentil-soup"></div>
+        <div class="card-body">
+          <h3 class="card-title">Lemony lentil soup</h3>
+          <span class="card-meta"><span class="card-time">35 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/mediterranean-lentil-and-roasted-veg-bowl.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-lentil-and-roasted-veg-bowl/hero.png" alt="Mediterranean lentil and roasted veg bowl" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-lentil-and-roasted-veg-bowl"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean lentil and roasted veg bowl</h3>
+          <span class="card-meta"><span class="card-time">35 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/sheet-pan-greek-meatballs-with-veggies.html">
+        <div class="card-media"><img src="assets/generated/sheet-pan-greek-meatballs-with-veggies/hero.png" alt="Sheet pan Greek meatballs with veggies" loading="lazy" decoding="async" style="view-transition-name: card-sheet-pan-greek-meatballs-with-veggies"></div>
+        <div class="card-body">
+          <h3 class="card-title">Sheet pan Greek meatballs with veggies</h3>
+          <span class="card-meta"><span class="card-time">35 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/tuscan-white-bean-and-sausage-stew.html">
+        <div class="card-media"><img src="assets/generated/tuscan-white-bean-and-sausage-stew/hero.png" alt="Tuscan white bean and sausage stew" loading="lazy" decoding="async" style="view-transition-name: card-tuscan-white-bean-and-sausage-stew"></div>
+        <div class="card-body">
+          <h3 class="card-title">Tuscan white bean and sausage stew</h3>
+          <span class="card-meta"><span class="card-time">35 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/sous-vide-cod-with-lemon-herb-butter.html">
+        <div class="card-media"><img src="assets/generated/sous-vide-cod-with-lemon-herb-butter/hero.png" alt="Sous vide cod with lemon-herb butter" loading="lazy" decoding="async" style="view-transition-name: card-sous-vide-cod-with-lemon-herb-butter"></div>
+        <div class="card-body">
+          <h3 class="card-title">Sous vide cod with lemon-herb butter</h3>
+          <span class="card-meta"><span class="card-time">40 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--wide reveal" href="Recipes/greek-lemon-chicken-thighs-and-orzo.html">
+        <div class="card-media"><img src="assets/generated/greek-lemon-chicken-thighs-and-orzo/hero.png" alt="Greek lemon chicken thighs and orzo" loading="lazy" decoding="async" style="view-transition-name: card-greek-lemon-chicken-thighs-and-orzo"></div>
+        <div class="card-body">
+          <h3 class="card-title">Greek lemon chicken thighs and orzo</h3>
+          <span class="card-meta"><span class="card-time">45 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/pork-tenderloin-with-roasted-apples-and-fennel.html">
+        <div class="card-media"><img src="assets/generated/pork-tenderloin-with-roasted-apples-and-fennel/hero.png" alt="Pork tenderloin with roasted apples and fennel" loading="lazy" decoding="async" style="view-transition-name: card-pork-tenderloin-with-roasted-apples-and-fennel"></div>
+        <div class="card-body">
+          <h3 class="card-title">Pork tenderloin with roasted apples and fennel</h3>
+          <span class="card-meta"><span class="card-time">45 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/mediterranean-turkey-stuffed-peppers.html">
+        <div class="card-media"><img src="assets/generated/mediterranean-turkey-stuffed-peppers/hero.png" alt="Mediterranean turkey stuffed peppers" loading="lazy" decoding="async" style="view-transition-name: card-mediterranean-turkey-stuffed-peppers"></div>
+        <div class="card-body">
+          <h3 class="card-title">Mediterranean turkey stuffed peppers</h3>
+          <span class="card-meta"><span class="card-time">50 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      <a class="card card--sm reveal" href="Recipes/simplified-beef-and-eggplant-bake.html">
+        <div class="card-media"><img src="assets/generated/simplified-beef-and-eggplant-bake/hero.png" alt="Simplified beef and eggplant bake" loading="lazy" decoding="async" style="view-transition-name: card-simplified-beef-and-eggplant-bake"></div>
+        <div class="card-body">
+          <h3 class="card-title">Simplified beef and eggplant bake</h3>
+          <span class="card-meta"><span class="card-time">55 min</span><span class="card-baby"><span class="dot" aria-hidden="true"></span>2<span class="card-baby-x">+</span>1</span></span>
+          <span class="card-go" aria-hidden="true">→</span>
+        </div>
+      </a>
+      </div>
+    </section>
+
+    <footer>Every recipe here feeds the grown-ups and Aiden from one pan. The <span class="safe-word">green dot</span> marks a shared baby portion. Always check the Baby Safety Notes before serving.</footer>
+  </main>
+
+  <script>
+    (function () {
+      var KEY = 'chef-marco-theme';
+      var root = document.documentElement;
+      try {
+        var saved = localStorage.getItem(KEY);
+        if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+      } catch (e) {}
+      var btn = document.querySelector('[data-theme-toggle]');
+      var icon = document.querySelector('[data-theme-icon]');
+      function effective() {
+        var explicit = root.getAttribute('data-theme');
+        if (explicit) return explicit;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      function paint() {
+        var dark = effective() === 'dark';
+        if (icon) icon.textContent = dark ? '☀' : '☾';
+        if (btn) btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+      paint();
+      if (btn) btn.addEventListener('click', function () {
+        var next = effective() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+        paint();
+      });
+    })();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('_dist/sw.js').catch(function () {});
+    }
+    function revealAll() { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); }); }
+    // Arriving via a cross-document view transition: skip scroll-reveal so the
+    // morph isn't doubled up by per-card fade-ins.
+    window.addEventListener('pagereveal', function (e) { if (e && e.viewTransition) { document.documentElement.classList.add('vt-in'); revealAll(); } });
+    (function () {
+      if (document.documentElement.classList.contains('vt-in')) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        revealAll();
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+      // Safety: never leave a card permanently hidden if IO misses one.
+      setTimeout(function () {
+        document.querySelectorAll('.reveal:not(.in)').forEach(function (el) { el.classList.add('in'); });
+      }, 1600);
+    })();
+  </script>
+</body>
+</html>
