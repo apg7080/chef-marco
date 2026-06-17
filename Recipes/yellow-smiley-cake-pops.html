@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- cook-gen v1 — DRAFT, hand-authored on macOS (no cook.mjs toolchain present); re-render on WSL to validate. -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yellow smiley face cake pops</title>
+<link rel="manifest" href="../_dist/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../_dist/print.css" media="print">
+<style>
+  @view-transition { navigation: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    font-feature-settings: "kern", "liga", "calt", "onum";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap { width: 100%; max-width: var(--maxgrid); margin: 0 auto; padding: 48px var(--gutter) 120px; }
+  @media (max-width: 720px) { .wrap { padding: 24px var(--gutter) 72px; } }
+  .prose { max-width: var(--maxprose); }
+
+  header { padding: 28px 0 36px; position: relative; }
+  header::before { content: ""; display: block; width: 56px; height: 2px; background: var(--clay); margin-bottom: 28px; }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: var(--t-eyebrow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    font-weight: 700;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: var(--t-h1);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin: 18px 0 22px;
+    max-width: 20ch;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 28;
+    font-size: var(--t-lede);
+    line-height: 1.45;
+    color: var(--ink);
+    max-width: 52ch;
+    margin: 0 0 32px;
+    font-weight: 400;
+    text-wrap: pretty;
+    letter-spacing: -0.003em;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    margin: 0 0 18px;
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+  }
+  .meta dt {
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    margin-bottom: 6px;
+  }
+  .meta dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+  .meta > div + div { padding-left: 18px; border-left: 1px solid var(--rule-soft); }
+  @media (max-width: 640px) { .meta > div + div { padding-left: 0; border-left: 0; padding-top: 12px; margin-top: 12px; border-top: 1px dashed var(--rule-soft); } }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .pill {
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+  .pill .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--safe); margin-right: 6px; vertical-align: 1px; }
+  .pill .dot.warn { background: var(--warn); }
+
+  .hero { margin: 48px 0 0; position: relative; }
+  .hero img, .hero svg { width: 100%; height: auto; display: block; border-radius: var(--img-radius); background: var(--card); object-fit: cover; }
+  .hero-caption {
+    font-family: var(--sans);
+    font-size: var(--t-caption);
+    color: var(--ink-soft);
+    margin-top: 14px;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+  }
+
+  section { margin-top: 96px; position: relative; }
+  section:first-of-type { margin-top: 80px; }
+
+  .section-head { display: grid; grid-template-columns: 1fr; gap: 0; margin-bottom: 36px; }
+  @media (min-width: 920px) { .section-head { grid-template-columns: 120px 1fr; align-items: start; gap: 0; } }
+  .section-num {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 144;
+    font-size: 56px;
+    line-height: 0.85;
+    color: var(--clay);
+    font-weight: 300;
+    font-variant-numeric: lining-nums;
+    margin-bottom: 8px;
+  }
+  @media (min-width: 920px) { .section-num { font-size: 72px; margin-bottom: 0; margin-top: -6px; } }
+  .section-title h2 {
+    font-family: var(--serif);
+    font-variation-settings: "opsz" 96;
+    font-size: var(--t-h2);
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    margin: 0 0 10px;
+    line-height: 1.1;
+    text-wrap: balance;
+    max-width: 22ch;
+    color: var(--ink);
+  }
+  .section-title .kicker {
+    font-family: var(--sans);
+    font-size: var(--t-ui);
+    color: var(--ink-soft);
+    margin: 0;
+    text-wrap: pretty;
+    max-width: 56ch;
+    line-height: 1.5;
+  }
+
+  p { margin: 0 0 16px; max-width: var(--maxprose); line-height: 1.65; }
+  p + p { margin-top: 0; }
+  .body-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+  @media (min-width: 920px) {
+    .body-grid.text-left  { grid-template-columns: 5fr 7fr; gap: 64px; }
+    .body-grid.text-right { grid-template-columns: 7fr 5fr; gap: 64px; }
+  }
+
+  figure { margin: 0; }
+  figure img {
+    width: 100%; height: auto; display: block;
+    border-radius: var(--img-radius); background: var(--card); object-fit: cover;
+  }
+
+  /* DRAFT placeholder tile — stands in for an Imagen photo not yet generated on this machine. */
+  .ph {
+    border-radius: var(--img-radius);
+    background:
+      repeating-linear-gradient(45deg, color-mix(in oklch, var(--clay) 7%, transparent) 0 12px, transparent 12px 24px),
+      var(--paper-deep);
+    border: 1px dashed var(--rule);
+    aspect-ratio: 4 / 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 24px; gap: 8px;
+  }
+  .ph .ph-key {
+    font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--clay-deep); font-weight: 700;
+  }
+  .ph .ph-note { font-family: var(--sans); font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; max-width: 30ch; }
+  .ph .ph-icon { font-size: 26px; opacity: 0.6; }
+
+  figcaption {
+    font-family: var(--sans); font-size: var(--t-caption); color: var(--ink-soft);
+    margin-top: 12px; line-height: 1.55; max-width: 42ch; text-wrap: pretty;
+  }
+  .hero-caption { text-wrap: pretty; max-width: 56ch; }
+
+  .tight-list { padding-left: 20px; margin: 0 0 16px; font-size: var(--t-body); }
+  .tight-list li { margin-bottom: 8px; line-height: 1.55; }
+  .tight-list li:last-child { margin-bottom: 0; }
+
+  .meta-line {
+    font-family: var(--sans); font-size: var(--t-ui); color: var(--ink);
+    display: flex; gap: 20px; align-items: baseline; flex-wrap: wrap;
+    margin: 10px 0 0; padding-top: 14px; border-top: 1px solid var(--rule-soft);
+    font-variant-numeric: tabular-nums; font-weight: 500;
+  }
+  .meta-line span + span { color: var(--ink-soft); font-weight: 400; }
+
+  h3.sub {
+    font-family: var(--sans); font-size: var(--t-h3); text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--olive); font-weight: 700; margin: 0 0 16px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: var(--t-ui); }
+  table th { text-align: left; padding: 0 0 12px; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; border-bottom: 1px solid var(--rule); }
+  table td { padding: 14px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  table tr:last-child td { border-bottom: 0; }
+  td.amt { white-space: nowrap; color: var(--ink-soft); font-variant-numeric: tabular-nums; text-align: right; padding-left: 16px; }
+  .tag {
+    display: inline-block; font-size: 10.5px; padding: 2px 7px; border-radius: 3px;
+    background: color-mix(in oklch, var(--clay) 18%, var(--card)); color: var(--clay-deep);
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 6px; vertical-align: 1px;
+  }
+  :root[data-theme="dark"] .tag { color: var(--ink); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tag { color: var(--ink); } }
+
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 16px;
+    padding: 18px 0; border-bottom: 1px solid var(--rule-soft); align-items: start;
+  }
+  ol.steps li:first-child { padding-top: 0; }
+  ol.steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  ol.steps li::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: var(--sans); font-size: 13px; color: var(--clay-deep); font-weight: 700;
+    letter-spacing: 0.06em; padding-top: 4px; font-variant-numeric: tabular-nums;
+  }
+  ol.steps .timing {
+    display: block; font-family: var(--sans); font-size: 11.5px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--olive); font-weight: 700; margin-bottom: 6px;
+  }
+  ol.steps .lead {
+    display: block; font-family: var(--serif); font-variation-settings: "opsz" 32;
+    font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: -0.005em;
+    margin-bottom: 6px; color: var(--ink);
+  }
+  ol.steps p { margin: 6px 0 0; font-size: var(--t-body); line-height: 1.6; max-width: 60ch; text-wrap: pretty; }
+
+  .panel { border-radius: 10px; padding: 32px 36px; }
+  @media (max-width: 720px) { .panel { padding: 24px; } }
+  .panel.safe { background: var(--safe-wash); border: 1px solid color-mix(in oklch, var(--safe) 40%, transparent); }
+  .panel.warm { background: var(--clay-wash); border: 1px solid color-mix(in oklch, var(--clay) 25%, transparent); }
+  .panel h3.sub { color: var(--safe); margin-bottom: 18px; }
+  .panel.warm h3.sub { color: var(--clay); }
+
+  .safety-grid {
+    display: grid; grid-template-columns: 1fr; gap: 14px 28px;
+    font-family: var(--sans); font-size: var(--t-ui); line-height: 1.55; color: var(--ink);
+  }
+  @media (min-width: 720px) { .safety-grid { grid-template-columns: 1fr 1fr; } }
+  .safety-grid li { list-style: none; display: grid; grid-template-columns: 22px 1fr; gap: 6px; align-items: start; }
+  .safety-grid li::before { content: "✓"; color: var(--safe); font-weight: 700; font-size: 16px; line-height: 1.4; }
+  .safety-grid li.warn::before { content: "!"; color: var(--warn); }
+
+  .panel.warm p { margin: 0; color: var(--ink); font-size: var(--t-body); line-height: 1.55; }
+
+  footer {
+    margin-top: 96px; padding-top: 28px; border-top: 1px solid var(--rule);
+    font-family: var(--sans); font-size: var(--t-caption); color: var(--ink-soft);
+    line-height: 1.6; max-width: var(--maxprose);
+  }
+
+  .topnav { font-family: var(--sans); font-size: var(--t-ui); padding-top: 6px; margin-bottom: 4px; }
+  .topnav a {
+    color: var(--ink-soft); text-decoration: none; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 7px; min-height: 44px; transition: color 200ms ease;
+  }
+  .topnav a:hover { color: var(--clay-deep); }
+  .topnav .arrow { transition: transform 200ms cubic-bezier(0.16,1,0.3,1); }
+  .topnav a:hover .arrow { transform: translateX(-3px); }
+
+  .theme-toggle {
+    position: fixed; top: 18px; right: 18px; z-index: 50;
+    width: 38px; height: 38px; border-radius: 999px;
+    background: var(--card); color: var(--ink); border: 1px solid var(--rule);
+    font: 16px/1 var(--sans); display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+  }
+  .theme-toggle:hover { background: var(--paper-deep); transform: translateY(-1px); }
+
+  .draftbar {
+    font-family: var(--sans); font-size: 12.5px; line-height: 1.5;
+    background: var(--clay-wash); color: var(--clay-deep);
+    border: 1px solid color-mix(in oklch, var(--clay) 30%, transparent);
+    border-radius: 8px; padding: 12px 16px; margin: 18px 0 0; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <button type="button" class="theme-toggle" aria-label="Toggle dark mode" data-theme-toggle>
+    <span aria-hidden="true" data-theme-icon>◐</span>
+  </button>
+  <main class="wrap">
+
+    <nav class="topnav"><a href="../index.html"><span class="arrow" aria-hidden="true">←</span> All recipes</a></nav>
+
+    <header>
+      <div class="eyebrow">Chef Marco · Treat · Birthdays &amp; parties</div>
+      <h1>Yellow smiley face cake pops</h1>
+      <p class="lede">A homemade party treat: scratch vanilla cake crumbled into buttercream, rolled, and dipped a cheerful sunshine yellow, each one finished with a piped chocolate grin. Everything comes from a regular supermarket.</p>
+
+      <dl class="meta"><div><dt>Yield</dt><dd>About 24 cake pops</dd></div>
+        <div><dt>Active time</dt><dd>45 min</dd></div>
+        <div><dt>Total</dt><dd>2 hr 30 min</dd></div>
+        <div><dt>Texture</dt><dd>Firm treat</dd></div>
+        <div><dt>Occasion</dt><dd>Celebration</dd></div></dl>
+
+      <div class="pill-row" aria-label="At a glance"><span class="pill"><span class="dot"></span>Supermarket only</span>
+        <span class="pill"><span class="dot"></span>No honey</span>
+        <span class="pill"><span class="dot warn"></span>Added sugar</span>
+        <span class="pill"><span class="dot warn"></span>On a stick — not for babies</span></div>
+
+      <div class="draftbar">Draft preview rendered on macOS. The five photo slots are placeholders — the real hero, ingredient, prep, side, and storage shots are generated with Imagen 4 by the build pipeline on the WSL box. The hero below is a stand-in illustration.</div>
+    </header>
+
+    <figure class="hero">
+      <svg viewBox="0 0 1000 640" role="img" aria-label="Illustration of three yellow smiley-face cake pops standing in a jar." xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="pop" cx="38%" cy="32%" r="75%">
+            <stop offset="0%" stop-color="oklch(0.93 0.16 95)"/>
+            <stop offset="55%" stop-color="oklch(0.85 0.18 92)"/>
+            <stop offset="100%" stop-color="oklch(0.74 0.17 88)"/>
+          </radialGradient>
+          <linearGradient id="jar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="color-mix(in oklch, var(--card) 70%, transparent)"/>
+            <stop offset="100%" stop-color="color-mix(in oklch, var(--paper-deep) 90%, transparent)"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1000" height="640" fill="var(--card)"/>
+        <ellipse cx="500" cy="588" rx="300" ry="26" fill="color-mix(in oklch, var(--ink) 10%, transparent)"/>
+        <!-- jar -->
+        <path d="M360 360 q-18 0 -18 22 l0 150 q0 40 40 40 l236 0 q40 0 40 -40 l0 -150 q0 -22 -18 -22 z" fill="url(#jar)" stroke="var(--rule)" stroke-width="3"/>
+        <rect x="352" y="346" width="296" height="22" rx="11" fill="color-mix(in oklch, var(--card) 60%, transparent)" stroke="var(--rule)" stroke-width="3"/>
+        <!-- sticks -->
+        <rect x="357" y="250" width="8" height="170" rx="4" fill="oklch(0.86 0.03 80)"/>
+        <rect x="497" y="210" width="8" height="210" rx="4" fill="oklch(0.86 0.03 80)"/>
+        <rect x="637" y="250" width="8" height="170" rx="4" fill="oklch(0.86 0.03 80)"/>
+        <!-- pop left -->
+        <g>
+          <circle cx="361" cy="232" r="86" fill="url(#pop)" stroke="oklch(0.66 0.16 86)" stroke-width="2"/>
+          <ellipse cx="332" cy="200" rx="26" ry="16" fill="oklch(0.97 0.06 96)" opacity="0.55"/>
+          <circle cx="335" cy="222" r="9" fill="var(--ink)"/>
+          <circle cx="387" cy="222" r="9" fill="var(--ink)"/>
+          <path d="M327 256 q34 34 68 0" fill="none" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>
+        </g>
+        <!-- pop center (tall) -->
+        <g>
+          <circle cx="501" cy="192" r="96" fill="url(#pop)" stroke="oklch(0.66 0.16 86)" stroke-width="2"/>
+          <ellipse cx="469" cy="156" rx="30" ry="18" fill="oklch(0.97 0.06 96)" opacity="0.55"/>
+          <circle cx="472" cy="182" r="10" fill="var(--ink)"/>
+          <circle cx="530" cy="182" r="10" fill="var(--ink)"/>
+          <path d="M463 220 q38 38 76 0" fill="none" stroke="var(--ink)" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <!-- pop right -->
+        <g>
+          <circle cx="641" cy="232" r="86" fill="url(#pop)" stroke="oklch(0.66 0.16 86)" stroke-width="2"/>
+          <ellipse cx="612" cy="200" rx="26" ry="16" fill="oklch(0.97 0.06 96)" opacity="0.55"/>
+          <circle cx="615" cy="222" r="9" fill="var(--ink)"/>
+          <circle cx="667" cy="222" r="9" fill="var(--ink)"/>
+          <path d="M607 256 q34 34 68 0" fill="none" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <p class="hero-caption">Stand-in illustration. The shipped page uses an Imagen photo: a jar of sunshine-yellow cake pops, each with a piped chocolate grin.</p>
+    </figure>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">01</div>
+        <div class="section-title">
+          <h2>What you are making</h2>
+          <p class="kicker">Homemade vanilla cake pops, dipped yellow, with a chocolate smiley face.</p>
+        </div>
+      </div>
+      <div class="body-grid text-left">
+        <div class="prose">
+          <p>A from-scratch vanilla cake, crumbled and bound with a quick buttercream, rolled into balls and dipped in melted white chocolate tinted sunny yellow. A piped dark-chocolate face finishes each one. Built entirely from regular supermarket ingredients.</p>
+          <p class="meta-line"><span>About 24 cake pops</span><span>45 min active / 2 hr 30 min total</span></p>
+        </div>
+        <figure>
+          <div class="ph"><span class="ph-icon" aria-hidden="true">▦</span><span class="ph-key">Photo · ingredients</span><span class="ph-note">Flat-lay of cake crumbs, buttercream, white chocolate, yellow color, and sticks.</span></div>
+          <figcaption>Cake, buttercream, white chocolate, yellow color, and a handful of sticks.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">02</div>
+        <div class="section-title">
+          <h2>Ingredients</h2>
+          <p class="kicker">Makes about 24 cake pops. All supermarket aisles.</p>
+        </div>
+      </div>
+      <div class="body-grid text-left">
+        <div>
+          <h3 class="sub">Vanilla cake</h3>
+          <table>
+            <thead><tr><th>Ingredient</th><th style="text-align:right">Amount</th></tr></thead>
+            <tbody>
+              <tr><td>All-purpose flour</td><td class="amt">1½ cups</td></tr>
+              <tr><td>Granulated sugar</td><td class="amt">1 cup</td></tr>
+              <tr><td>Unsalted butter, softened</td><td class="amt">½ cup</td></tr>
+              <tr><td>Large eggs</td><td class="amt">2</td></tr>
+              <tr><td>Whole milk</td><td class="amt">½ cup</td></tr>
+              <tr><td>Baking powder</td><td class="amt">1½ tsp</td></tr>
+              <tr><td>Vanilla extract</td><td class="amt">2 tsp</td></tr>
+              <tr><td>Salt</td><td class="amt">¼ tsp</td></tr>
+            </tbody>
+          </table>
+          <h3 class="sub" style="margin-top:32px">Buttercream binder</h3>
+          <table>
+            <tbody>
+              <tr><td>Unsalted butter, softened</td><td class="amt">¼ cup</td></tr>
+              <tr><td>Powdered sugar</td><td class="amt">1 cup</td></tr>
+              <tr><td>Vanilla extract</td><td class="amt">½ tsp</td></tr>
+              <tr><td>Whole milk</td><td class="amt">1–2 tsp</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 class="sub">Yellow coating and face</h3>
+          <table>
+            <tbody>
+              <tr><td>White melting chocolate or white chocolate chips</td><td class="amt">12 oz</td></tr>
+              <tr><td>Neutral oil or refined coconut oil</td><td class="amt">1 tbsp</td></tr>
+              <tr><td>Oil-based or gel yellow color<span class="tag">never liquid</span></td><td class="amt">as needed</td></tr>
+              <tr><td>Semisweet or dark chocolate chips, for piping</td><td class="amt">¼ cup</td></tr>
+              <tr><td>Lollipop or cake-pop sticks</td><td class="amt">about 24</td></tr>
+            </tbody>
+          </table>
+          <div class="draftbar" style="margin-top:24px">Coloring note: white chocolate seizes into a grainy paste if it touches water-based (liquid) food coloring. Use oil-based or gel color. If your store only carries liquid, buy pre-colored yellow candy wafers instead.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">03</div>
+        <div class="section-title">
+          <h2>Method</h2>
+          <p class="kicker">45 minutes of active time, plus chilling.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        <figure>
+          <div class="ph"><span class="ph-icon" aria-hidden="true">▦</span><span class="ph-key">Photo · prep action</span><span class="ph-note">Hands pressing cake crumbs and buttercream into a firm ball.</span></div>
+          <figcaption>Cake crumbs pressed into buttercream until they hold in a firm ball.</figcaption>
+        </figure>
+        <div>
+          <ol class="steps">
+            <li><div>
+              <span class="timing">30 min</span>
+              <span class="lead">Bake a simple vanilla cake.</span>
+              <p>Heat oven to 350°F. Cream the softened butter with granulated sugar until pale. Beat in eggs and vanilla. Whisk flour, baking powder, and salt separately, then add to the butter in three additions, alternating with the milk. Spread into a greased 8-inch pan and bake 25 to 30 minutes until a toothpick comes out clean. Cool completely.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">5 min</span>
+              <span class="lead">Make the buttercream binder.</span>
+              <p>Beat the ¼ cup butter with powdered sugar, vanilla, and just enough milk to make a thick, smooth frosting. This glues the crumbs together.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">10 min</span>
+              <span class="lead">Crumble and mix.</span>
+              <p>Crumble the fully cooled cake into fine crumbs with your hands. Add the buttercream a few spoonfuls at a time, mixing until the crumbs hold together when you squeeze a handful. Stop while it is still firm, not wet or oily.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">20 min</span>
+              <span class="lead">Roll and chill.</span>
+              <p>Roll into roughly 1-inch balls, about 24. Set on a lined tray and chill 30 minutes in the fridge or 15 in the freezer until firm but not frozen solid.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">10 min</span>
+              <span class="lead">Melt and color the coating.</span>
+              <p>Melt the white chocolate with the oil gently — microwave in 30-second bursts and stir between each, or use a double boiler. Stir in oil-based or gel yellow until evenly sunny. Do not use liquid coloring; water seizes chocolate.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">5 min</span>
+              <span class="lead">Attach the sticks.</span>
+              <p>Dip about ½ inch of a stick into the melted coating, then push it halfway into a chilled ball. The coating sets like glue. Chill 5 minutes so the sticks hold.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">20 min</span>
+              <span class="lead">Dip them yellow.</span>
+              <p>Submerge each pop fully in the yellow coating in one motion. Lift straight up and gently twirl, letting the excess drip back. Stand upright in a block of styrofoam or an upturned colander to set.</p>
+            </div></li>
+            <li><div>
+              <span class="timing">10 min</span>
+              <span class="lead">Pipe the smiley faces.</span>
+              <p>Melt the dark chocolate chips, spoon into a small zip-top bag, and snip a tiny corner. Once the yellow has set firm, pipe two dot eyes and a curved smile on each pop. Let the faces set before serving or packing.</p>
+            </div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">04</div>
+        <div class="section-title">
+          <h2>Serve it</h2>
+          <p class="kicker">Faces out, sitting down.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        <figure>
+          <div class="ph"><span class="ph-icon" aria-hidden="true">▦</span><span class="ph-key">Photo · side</span><span class="ph-note">A single finished pop standing upright, yellow set glossy, face piped on.</span></div>
+          <figcaption>A finished pop standing upright, the yellow set glossy and the face piped on.</figcaption>
+        </figure>
+        <div class="prose">
+          <ul class="tight-list">
+            <li><strong>Serve.</strong> Stand the finished pops in a jar or foam block so the faces show.</li>
+            <li><strong>Party.</strong> Tie a thin ribbon under each face for a birthday or party tray.</li>
+            <li><strong>Baby taste.</strong> For a young toddler, offer a small stick-free crumb of plain cake, supervised — never the pop on its stick.</li>
+          </ul>
+          <p>These are a treat, not a meal. Serve sitting down.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">05</div>
+        <div class="section-title">
+          <h2>Safety check</h2>
+          <p class="kicker">This one is a treat, not a baby meal — read the warnings.</p>
+        </div>
+      </div>
+      <div class="panel safe">
+        <h3 class="sub">Notes</h3>
+        <ul class="safety-grid">
+          <li>No honey</li>
+          <li>No high-mercury fish</li>
+          <li class="warn">Contains added sugar — an occasional treat, recommended 24 months and up</li>
+          <li class="warn">On a stick: a choking hazard. Never hand a baby or young toddler the pop or the bare stick</li>
+          <li class="warn">Contains allergens: wheat, milk, egg, soy. Chocolate may carry trace nuts — check the label</li>
+          <li class="warn">Sit-down eating only, supervised</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">06</div>
+        <div class="section-title">
+          <h2>Storage</h2>
+          <p class="kicker">Airtight, room temperature, faces out.</p>
+        </div>
+      </div>
+      <div class="body-grid text-right">
+        <figure>
+          <div class="ph"><span class="ph-icon" aria-hidden="true">▦</span><span class="ph-key">Photo · storage</span><span class="ph-note">Finished pops standing in a block, faces out, ready for a tray.</span></div>
+          <figcaption>Finished pops standing in a block, faces out, ready for a party tray.</figcaption>
+        </figure>
+        <div class="prose">
+          <ul class="tight-list">
+            <li><strong>Room temp.</strong> Airtight container, 2 to 3 days.</li>
+            <li><strong>Fridge.</strong> Up to 7 days, covered. Let condensation evaporate before serving.</li>
+            <li><strong>Freezer.</strong> Freeze undipped balls up to 4 weeks. Thaw before coating.</li>
+            <li><strong>Do not.</strong> Refrigerate uncovered; condensation dulls the shine and softens the coating.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal in">
+      <div class="section-head">
+        <div class="section-num">07</div>
+        <div class="section-title">
+          <h2>Dress them up</h2>
+          <p class="kicker">Same base, a few extra touches.</p>
+        </div>
+      </div>
+      <div class="panel warm">
+        <p>Stir a drop of almond extract into the coating, or dip half the batch in dark chocolate finished with a pinch of flaky salt. Sprinkles or edible glitter pressed on under the wet coating dress them up for a party.</p>
+      </div>
+    </section>
+
+    <footer>A Chef Marco treat. Supermarket ingredients only. Photographs generated with Imagen 4 unless marked photographed at home — this draft uses a stand-in illustration. Typeset in Fraunces and Inter on a warm-paper palette.</footer>
+
+  </main>
+
+  <script>
+    (function () {
+      var KEY = 'chef-marco-theme';
+      var root = document.documentElement;
+      try {
+        var saved = localStorage.getItem(KEY);
+        if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+      } catch (e) {}
+      var btn = document.querySelector('[data-theme-toggle]');
+      var icon = document.querySelector('[data-theme-icon]');
+      function effective() {
+        var explicit = root.getAttribute('data-theme');
+        if (explicit) return explicit;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      function paint() { if (icon) icon.textContent = effective() === 'dark' ? '☀' : '☾'; }
+      paint();
+      if (btn) btn.addEventListener('click', function () {
+        var next = effective() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem(KEY, next); } catch (e) {}
+        paint();
+      });
+    })();
+  </script>
+</body>
+</html>
